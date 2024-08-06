@@ -1,0 +1,48 @@
+<h1 class="text-2xl font-bold text-center my-4">Football Teams Search</h1>
+
+<div class="flex flex-col items-center space-y-4 mb-4">
+  <input type="text"
+         [(ngModel)]="query"
+         placeholder="Enter search query"
+         class="input input-bordered w-full max-w-xs"
+         (keydown.enter)="searchTeams()" />
+  <select [(ngModel)]="column"
+          class="select select-bordered w-full max-w-xs">
+    <option *ngFor="let col of columns" [value]="col">{{ col }}</option>
+  </select>
+  <button (click)="searchTeams()"
+          class="btn btn-primary w-full max-w-xs">
+    Search
+  </button>
+</div>
+
+<p *ngIf="error" class="text-red-500 text-center"><em>{{ error }}</em></p>
+
+<div class="overflow-x-auto">
+  <table class="table-auto w-full border-collapse border border-gray-200 shadow-lg">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 border border-gray-200">Team</th>
+        <th class="px-4 py-2 border border-gray-200">Mascot</th>
+        <th class="px-4 py-2 border border-gray-200">Date of Last Win</th>
+        <th class="px-4 py-2 border border-gray-200">Winning Percentage</th>
+        <th class="px-4 py-2 border border-gray-200">Wins</th>
+        <th class="px-4 py-2 border border-gray-200">Losses</th>
+        <th class="px-4 py-2 border border-gray-200">Ties</th>
+        <th class="px-4 py-2 border border-gray-200">Games</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let team of teams" class="hover:bg-gray-50">
+        <td class="px-4 py-2 border border-gray-200">{{ team.team }}</td>
+        <td class="px-4 py-2 border border-gray-200">{{ team.mascot }}</td>
+        <td class="px-4 py-2 border border-gray-200">{{ team.dateOfLastWin | date }}</td>
+        <td class="px-4 py-2 border border-gray-200">{{ team.winningPercentage | percent: '1.2-2' }}</td>
+        <td class="px-4 py-2 border border-gray-200">{{ team.wins }}</td>
+        <td class="px-4 py-2 border border-gray-200">{{ team.losses }}</td>
+        <td class="px-4 py-2 border border-gray-200">{{ team.ties }}</td>
+        <td class="px-4 py-2 border border-gray-200">{{ team.games }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
